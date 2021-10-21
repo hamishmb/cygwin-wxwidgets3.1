@@ -1,0 +1,11 @@
+--- origsrc/wxPython-src-3.0.2.0/src/unix/utilsunx.cpp	2014-06-24 16:43:01.000000000 -0500
++++ src/wxPython-src-3.0.2.0/src/unix/utilsunx.cpp	2015-01-04 14:56:24.894800900 -0600
+@@ -1172,7 +1172,7 @@ unsigned long wxGetProcessId()
+ 
+ wxMemorySize wxGetFreeMemory()
+ {
+-#if defined(__LINUX__)
++#if defined(__LINUX__) || defined(__CYGWIN__)
+     // get it from /proc/meminfo
+     FILE *fp = fopen("/proc/meminfo", "r");
+     if ( fp )

@@ -1,0 +1,228 @@
+NAME="wxWidgets3.1"
+VERSION=3.1.5
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="wxWidgets C++ application framework"
+DESCRIPTION="wxWidgets is a set of libraries that allows C++ applications to
+compile and run on several different types of computer, with minimal source
+code changes. There is one library per supported GUI. As well as providing a
+common API for GUI functionality, it provides functionality for accessing some
+commonly-used operating system facilities, from copying and deleting files to
+socket and thread support."
+HOMEPAGE="http://wxwidgets.org/"
+SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${VERSION}/wxWidgets-${VERSION}.tar.bz2"
+SRC_DIR="wxWidgets-${VERSION}"
+
+#Just for building:
+BUILD_REQUIRES="gettext gettext-devel make cppunit autoconf pkg-config gcc-core gcc-g++ doxygen libX11-devel libgtk2.0-devel libgtk3-devel libwebkitgtk1.0-devel libwebkitgtk3.0-devel libpng-devel libjpeg-devel libexpat-devel libiconv-devel libmspack-devel libnotify-devel libtiff-devel libXpm-devel libcogl-devel libEGL-devel libGL-devel libGLU-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_net-devel libSDL2_ttf-devel libsecret1_0 libsecret1-devel zlib-devel "
+
+#For running unit tests/runtime (currently disabled because they don't work).
+#Still needed for manual testing though, so leaving in here.
+BUILD_REQUIRES="$BUILD_REQUIRES xclock graphviz libwebkitgtk1.0_0 libwebkitgtk3.0_0 libpng16 libjpeg8 libexpat1 libiconv libiconv2 libmspack0 libnotify libnotify4 libtiff6 libXpm4 libcogl20 libEGL1 libGL1 libGLU1 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0 libSDL2_net2.0_0 libSDL2_ttf2.0_0 zlib"
+
+
+PATCH_URI="
+	https://src.fedoraproject.org/rpms/wxGTK3/raw/master/f/wxGTK3-3.0.3-abicheck.patch
+	fix-filename-test-wx31.patch
+	https://src.fedoraproject.org/rpms/wxGTK3/raw/master/f/force-x11-for-wxgl.patch
+	3.0.2-cygwin-auto-import.patch
+	3.1.4-cygwin-dlopen.patch
+	3.0.2-cygwin-unix.patch
+	3.1.4-cygwin-unix-part0.patch
+	3.1.4-cygwin-unix-part1.patch
+	3.1.4-cygwin-unix-part2.patch
+	3.1.4-cygwin-unix-part3.patch
+	3.1.4-cygwin-unix-part4.patch
+	3.0.3-cygwin-ftm.patch
+	3.1.5-cygwin-gcc5.patch
+	wxGTK3-3.1.5-collision-part1.patch
+	wxGTK3-3.1.5-collision-part2.patch
+	wxGTK3-3.1.5-collision-part3.patch
+	wxGTK3-3.1.5-collision-part4.patch
+	0007-Fix-video-sink-fallback-in-wxMediaCtrl-when-xvimages.patch
+"
+
+slot=${PV_MAJ_MIN}
+
+PKG_NAMES="libwx_baseu3.1_0 libwx_baseu3.1-devel ${NAME}-doc
+           libwx_gtk2u3.1_0 libwx_gtk2u3.1-devel
+           libwx_gtk3u3.1_0 libwx_gtk3u3.1-devel"
+libwx_baseu3_1_0_SUMMARY="${SUMMARY} (base unicode runtime)"
+libwx_baseu3_1_0_CONTENTS="
+	--exclude=html
+	usr/bin/cygwx_baseu*-3.1-0.dll
+	usr/share/doc/${NAME}/
+	usr/share/locale/*/LC_MESSAGES/wxstd31.mo
+"
+libwx_baseu3_1_devel_REQUIRES="libexpat-devel libiconv-devel zlib-devel"
+libwx_baseu3_1_devel_CONTENTS="
+	usr/bin/wxrc-3.1.exe
+	usr/include/wx-3.1/
+	usr/lib/libwx_baseu*-3.1.dll.a
+	usr/lib/wx/config/base-unicode-3.1
+	usr/lib/wx/include/base-unicode-3.1/
+	usr/share/aclocal/wxwin-3.1.m4
+	usr/share/bakefile/presets/wx31*
+"
+libwx_gtk2u3_1_0_SUMMARY="${SUMMARY} (GTK+2 unicode runtime)"
+libwx_gtk2u3_1_0_CONTENTS="usr/bin/cygwx_gtk2u*-3.1-0.dll"
+libwx_gtk2u3_1_devel_SUMMARY="${SUMMARY} (development)"
+libwx_gtk2u3_1_devel_REQUIRES="libGL-devel libglib2.0-devel libgtk2.0-devel libX11-devel"
+libwx_gtk2u3_1_devel_CONTENTS="
+	usr/lib/libwx_gtk2u*-3.1.dll.a
+	usr/lib/wx/config/gtk2-unicode-3.1
+	usr/lib/wx/include/gtk2-unicode-3.1/
+"
+libwx_gtk3u3_1_0_SUMMARY="${SUMMARY} (GTK+3 unicode runtime)"
+libwx_gtk3u3_1_0_CONTENTS="usr/bin/cygwx_gtk3u*-3.1-0.dll"
+libwx_gtk3u3_1_devel_SUMMARY="${SUMMARY} (development)"
+libwx_gtk3u3_1_devel_REQUIRES="libGL-devel libglib2.0-devel libgtk2.0-devel libX11-devel"
+libwx_gtk3u3_1_devel_CONTENTS="
+	usr/bin/wx-config-3.1
+	usr/lib/libwx_gtk3u*-3.1.dll.a
+	usr/lib/wx/config/gtk3-unicode-3.1
+	usr/lib/wx/include/gtk3-unicode-3.1/
+"
+wxWidgets3_1_doc_CATEGORY="Doc"
+wxWidgets3_1_doc_SUMMARY="${SUMMARY} (documentation)"
+wxWidgets3_1_doc_CONTENTS="usr/share/doc/${NAME}/html/"
+
+DIFF_EXCLUDES="doxygen.log out"
+
+CFLAGS+=" -fno-strict-aliasing"
+CXXFLAGS+=" -fno-strict-aliasing"
+
+MAKEOPTS="-j13"
+
+src_compile() {
+	local myconf
+	
+	pushd ${S}
+	NO_ACLOCAL=1 NO_LIBTOOLIZE=1 NO_AUTOHEADER=1 NO_AUTOMAKE=1 \
+	cygautoreconf
+
+	pushd ${S}/locale
+	rm -f *.mo
+	cygmake allmo -j1
+	popd
+	
+	mkdir -p ${B}/base
+	pushd ${B}/base
+
+	# standalone wx_base
+	${S}/configure \
+		--enable-compat28 \
+		--enable-optimise \
+		--enable-shared \
+		--enable-unicode \
+		--disable-gui \
+		--disable-rpath \
+		--with-regex=sys \
+		--with-expat \
+		--with-libiconv \
+		--with-zlib
+
+	popd
+	mkdir -p ${B}/gtk2
+	pushd ${B}/gtk2
+
+	${S}/configure \
+		--enable-optimise \
+		--enable-shared \
+		--enable-unicode \
+		--enable-mediactrl \
+		--disable-rpath \
+		--with-regex=sys \
+		--with-expat \
+		--with-gtk=2 \
+		--with-libpng \
+		--with-libjpeg \
+		--with-libiconv \
+		--with-libmspack \
+		--with-libnotify \
+		--with-libtiff \
+		--with-libxpm \
+		--with-opengl \
+		--with-sdl \
+		--with-zlib
+
+	cygmake
+
+    popd
+	mkdir -p ${B}/gtk3
+	pushd ${B}/gtk3
+
+	${S}/configure \
+		--enable-optimise \
+		--enable-shared \
+		--enable-unicode \
+		--enable-mediactrl \
+		--disable-rpath \
+		--with-regex=sys \
+		--with-expat \
+		--with-gtk=3 \
+		--with-libpng \
+		--with-libjpeg \
+		--with-libiconv \
+		--with-libmspack \
+		--with-libnotify \
+		--with-libtiff \
+		--with-libxpm \
+		--with-opengl \
+		--with-sdl \
+		--with-zlib
+
+	cygmake
+
+	popd
+	pushd ${S}/docs/doxygen
+	WX_SKIP_DOXYGEN_VERSION_CHECK=1 ./regen.sh html
+	popd
+}
+
+#Disabled, as automated tests are currently not working.
+#src_test() {
+#	echo "--- GTK2 tests ---"
+#	pushd ${B}/gtk2/tests
+#	cygmake
+#	DISPLAY=:0 PATH="${B}/lib:$PATH" ./test
+#	DISPLAY=:0 PATH="${B}/lib:$PATH" ./test_gui
+#	popd
+#	
+#	echo "--- GTK3 tests ---"
+#	pushd ${B}/gtk3/tests
+#	cygmake
+#	DISPLAY=:0 PATH="${B}/lib:$PATH" ./test
+#	DISPLAY=:0 PATH="${B}/lib:$PATH" ./test_gui
+#	popd
+#}
+
+src_install() {
+	dodir /usr/lib
+	cd ${B}/base
+	cp -fr lib/wx/ ${D}/usr/lib/
+	cd ${B}/gtk2
+	cyginstall -j1
+	cp -fr lib/lib*.dll.a lib/wx/ ${D}/usr/lib/
+	cd ${B}/gtk3
+	cyginstall -j1
+	cp -fr lib/lib*.dll.a lib/wx/ ${D}/usr/lib/
+
+	rm -f ${D}/usr/lib/wx/config/inplace-*
+
+	mv ${D}/usr/lib/*.dll ${D}/usr/bin
+	mv ${D}/usr/bin/wxrc-${slot}{,.exe}
+
+	rm -f ${D}/usr/bin/wx-config-${slot}
+	dosym ../lib/wx/config/gtk3-unicode-${slot} /usr/bin/wx-config-${slot}
+
+	insinto /usr/share/aclocal
+	newins ${S}/wxwin.m4 wxwin-${slot}.m4
+
+	cd ${S}/docs
+	dodoc changes.txt gpl.txt lgpl.txt licendoc.txt preamble.txt todo.txt
+
+	cp -r ${S}/docs/doxygen/out/html/ ${D}/usr/share/doc/${NAME}/
+
+	rm -f ${D}/usr/share/locale/*/LC_MESSAGES/wxmsw*.mo
+}

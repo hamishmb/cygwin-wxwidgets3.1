@@ -1,0 +1,11 @@
+--- origsrc/wxWidgets-3.0.3/configure.in	2017-04-29 07:00:38.000000000 -0500
++++ src/wxWidgets-3.0.3/configure.in	2017-07-25 23:20:07.158863100 -0500
+@@ -1313,7 +1313,7 @@ dnl ------------------------------------
+ dnl Platform specific tests
+ dnl ------------------------------------------------------------------------
+ 
+-if test "$USE_LINUX" = 1 -o "$USE_GNU" = 1; then
++if test "$USE_UNIX" = 1 -o "$USE_GNU" = 1; then
+     dnl While g++ predefines _GNU_SOURCE by default, gcc does not, so do it
+     dnl explicitly to ensure that the tests done below using C compiler
+     dnl succeed, otherwise things like pthread_mutexattr_settype() (and many

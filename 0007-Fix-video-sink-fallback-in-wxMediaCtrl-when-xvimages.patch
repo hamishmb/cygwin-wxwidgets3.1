@@ -1,0 +1,42 @@
+From 05d932d6821c418d7dd9c8d968a431b9190eda4f Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Sun, 15 Apr 2018 22:32:41 -0400
+Subject: [PATCH] Fix video sink fallback in wxMediaCtrl when xvimagesink
+ present but not working
+
+In certain cases (e.g., virtual machines), the XVideo extension may be
+present, but there are no working adaptors.  In this case, wxMediaCtrl
+will select xvimagesink, but then when it tries to actually play some
+media, it will fail.  Fix this by attemping to set the video sink to
+GST_STATE_READY in TryVideoSink().  Doing this causes gstreamer to run
+some checks against the XVideo extension.  If this fails, then we should
+fall back to the next sink type (ximagesink).
+
+(cherry picked from commit e905b94436096187e2452aefe480c617946adaeb)
+
+See https://github.com/wxWidgets/wxWidgets/pull/783
+---
+ src/unix/mediactrl.cpp | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/unix/mediactrl.cpp b/src/unix/mediactrl.cpp
+index 928648fd6e..4d77325ffd 100644
+--- a/src/unix/mediactrl.cpp
++++ b/src/unix/mediactrl.cpp
+@@ -953,6 +953,13 @@ bool wxGStreamerMediaBackend::TryVideoSink(GstElement* videosink)
+         g_object_unref(videosink);
+         return false;
+     }
++
++    if ( gst_element_set_state (videosink,
++                                GST_STATE_READY) == GST_STATE_CHANGE_FAILURE )
++    {
++        g_object_unref(videosink);
++        return false;
++    }
+ #else
+     // Check if the video sink either is an xoverlay or might contain one...
+     if( !GST_IS_BIN(videosink) && !GST_IS_X_OVERLAY(videosink) )
+-- 
+2.21.0
+

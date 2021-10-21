@@ -1,0 +1,10 @@
+--- ./wxWidgets3.1-3.1.5-1.x86_64/origsrc/wxWidgets-3.1.5/utils/wxrc/Makefile.in.orig	2021-10-21 16:00:03.874309700 +0100
++++ ./wxWidgets3.1-3.1.5-1.x86_64/origsrc/wxWidgets-3.1.5/utils/wxrc/Makefile.in	2021-10-21 16:01:15.059103100 +0100
+@@ -122,7 +122,6 @@
+ @COND_USE_XRC_1@	rm -f $(DESTDIR)$(bindir)/wxrc$(EXEEXT) $(DESTDIR)$(bindir)/wxrc-$(WX_RELEASE)$(WX_FLAVOUR)$(EXEEXT)
+ @COND_USE_XRC_1@	$(INSTALL_PROGRAM) wxrc$(EXEEXT) $(DESTDIR)$(bindir)
+ @COND_USE_XRC_1@	mv -f $(DESTDIR)$(bindir)/wxrc$(EXEEXT) $(DESTDIR)$(bindir)/wxrc-$(WX_RELEASE)$(WX_FLAVOUR)$(EXEEXT)
+-@COND_USE_XRC_1@	(cd $(DESTDIR)$(bindir) && $(LN_S) wxrc-$(WX_RELEASE)$(WX_FLAVOUR)$(EXEEXT) wxrc$(EXEEXT))
+ 
+ @COND_USE_XRC_1@uninstall_wxrc: 
+ @COND_USE_XRC_1@	rm -f $(DESTDIR)$(bindir)/wxrc$(EXEEXT)

@@ -1,0 +1,10 @@
+--- wxWidgets-3.0.2/tests/filename/filenametest.cpp.orig.cpp	2021-01-18 13:49:09.062612500 +0000
++++ wxWidgets-3.0.2/tests/filename/filenametest.cpp	2021-01-18 13:48:56.058582700 +0000
+@@ -757,7 +757,6 @@ void FileNameTestCase::TestExists()
+     // These files are only guaranteed to exist under Linux.
+     // No need for wxFILE_EXISTS_NO_FOLLOW here; wxFILE_EXISTS_SYMLINK implies it
+     CPPUNIT_ASSERT( wxFileName::Exists("/proc/self", wxFILE_EXISTS_SYMLINK) );
+-    CPPUNIT_ASSERT( wxFileName::Exists("/dev/log", wxFILE_EXISTS_SOCKET) );
+ #endif // __LINUX__
+ #ifndef __VMS
+     wxString fifo = dirTemp.GetPath() + "/fifo";

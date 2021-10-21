@@ -1,0 +1,27 @@
+Description: Force X11 if wx GL library is loaded
+Author: Olly Betts <olly@survex.com>
+Bug: https://trac.wxwidgets.org/ticket/17702
+Bug-Debian: https://bugs.debian.org/900678
+Forwarded: no
+Last-Update: 2019-08-13
+
+--- a/src/gtk/glcanvas.cpp
++++ b/src/gtk/glcanvas.cpp
+@@ -19,6 +19,17 @@
+ #include <gdk/gdkx.h>
+ #include "wx/gtk/private/gtk2-compat.h"
+ 
++#if GTK_CHECK_VERSION(3,10,0)
++// wxGTK's wxGLCanvas requires X11 currently, so tell GDK that so under
++// Wayland the app is still run using X11.  We put this here so it's
++// only run when the wx GL library is loaded (in a monolithic build this
++// will always be active if wx's GL support is enabled).
++struct ForceX11 {
++    ForceX11() { gdk_set_allowed_backends("x11"); }
++};
++static ForceX11 forcex11;
++#endif
++
+ #if WXWIN_COMPATIBILITY_2_8
+ 
+ //-----------------------------------------------------------------------------

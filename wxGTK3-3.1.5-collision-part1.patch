@@ -1,0 +1,11 @@
+--- ./wxWidgets3.1-3.1.5-1.x86_64/origsrc/wxWidgets-3.1.5/build/bakefiles/wx.bkl.orig   2021-10-21 15:28:59.750836800 +0100
++++ ./wxWidgets3.1-3.1.5-1.x86_64/origsrc/wxWidgets-3.1.5/build/bakefiles/wx.bkl        2021-10-21 15:29:15.169510800 +0100
+@@ -137,7 +137,7 @@
+         <using module="gettext"/>
+         <gettext-catalogs id="locale">
+             <srcdir>$(SRCDIR)/locale</srcdir>
+-            <catalog-name>wxstd-$(WX_RELEASE)</catalog-name>
++            <catalog-name>wxstd-$(WX_RELEASE_NODOT)</catalog-name>
+             <linguas>
+                 ca cs da de el es fi fr hu id it ja nl pl ru sl sv tr uk
+                 zh zh_CN zh_TW

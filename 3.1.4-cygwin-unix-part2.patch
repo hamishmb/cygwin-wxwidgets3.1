@@ -1,0 +1,29 @@
+--- origsrc/wxPython-src-3.0.2.0/src/common/mimecmn.cpp	2013-12-16 07:42:30.000000000 -0600
++++ src/wxPython-src-3.0.2.0/src/common/mimecmn.cpp	2017-03-28 21:48:12.630902100 -0500
+@@ -596,7 +596,7 @@ bool wxMimeTypesManager::Unassociate(wxF
+ {
+     EnsureImpl();
+ 
+-#if defined(__UNIX__) && !defined(__CYGWIN__) && !defined(__WINE__)
++#if defined(__UNIX__) && !defined(__WINE__)
+     return m_impl->Unassociate(ft);
+ #else
+     return ft->Unassociate();
+@@ -706,7 +706,7 @@ size_t wxMimeTypesManager::EnumAllFileTy
+ void wxMimeTypesManager::Initialize(int mcapStyle,
+                                     const wxString& sExtraDir)
+ {
+-#if defined(__UNIX__) && !defined(__CYGWIN__) && !defined(__WINE__)
++#if defined(__UNIX__) && !defined(__WINE__)
+     EnsureImpl();
+ 
+     m_impl->Initialize(mcapStyle, sExtraDir);
+@@ -719,7 +719,7 @@ void wxMimeTypesManager::Initialize(int
+ // and this function clears all the data from the manager
+ void wxMimeTypesManager::ClearData()
+ {
+-#if defined(__UNIX__) && !defined(__CYGWIN__) && !defined(__WINE__)
++#if defined(__UNIX__) && !defined(__WINE__)
+     EnsureImpl();
+ 
+     m_impl->ClearData();

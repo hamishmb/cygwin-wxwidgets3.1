@@ -1,0 +1,12 @@
+--- origsrc/wxPython-src-3.0.2.0/include/wx/dlimpexp.h	2013-12-31 15:47:57.000000000 -0600
++++ src/wxPython-src-3.0.2.0/include/wx/dlimpexp.h	2015-01-04 14:56:39.870827000 -0600
+@@ -56,9 +56,6 @@
+ #        define WXEXPORT _Export
+ #        define WXIMPORT _Export
+ #    endif
+-#elif defined(__CYGWIN__)
+-#    define WXEXPORT __declspec(dllexport)
+-#    define WXIMPORT __declspec(dllimport)
+ #endif
+ 
+ /* for other platforms/compilers we don't anything */
