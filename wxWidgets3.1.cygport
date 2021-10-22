@@ -14,11 +14,11 @@ SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${VERSION}/wx
 SRC_DIR="wxWidgets-${VERSION}"
 
 #Just for building:
-BUILD_REQUIRES="gettext gettext-devel make cppunit autoconf pkg-config gcc-core gcc-g++ doxygen libX11-devel libgtk2.0-devel libgtk3-devel libwebkitgtk1.0-devel libwebkitgtk3.0-devel libpng-devel libjpeg-devel libexpat-devel libiconv-devel libmspack-devel libnotify-devel libtiff-devel libXpm-devel libcogl-devel libEGL-devel libGL-devel libGLU-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_net-devel libSDL2_ttf-devel libsecret1_0 libsecret1-devel zlib-devel "
+BUILD_REQUIRES="gettext gettext-devel make cppunit autoconf pkg-config gcc-core gcc-g++ doxygen libX11-devel libgtk2.0-devel libgtk3-devel libwebkitgtk1.0-devel libwebkitgtk3.0-devel libpng-devel libjpeg-devel libexpat-devel libiconv-devel libmspack-devel libnotify-devel libtiff-devel libXpm-devel libcogl-devel libEGL-devel libGL-devel libGLU-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_net-devel libSDL2_ttf-devel libsecret1_0 libsecret1-devel libgstreamer1.0-devel libgstinterfaces1.0-devel libSM-devel libXtst-devel liblzma-devel zlib-devel "
 
 #For running unit tests/runtime (currently disabled because they don't work).
 #Still needed for manual testing though, so leaving in here.
-BUILD_REQUIRES="$BUILD_REQUIRES xclock graphviz libwebkitgtk1.0_0 libwebkitgtk3.0_0 libpng16 libjpeg8 libexpat1 libiconv libiconv2 libmspack0 libnotify libnotify4 libtiff6 libXpm4 libcogl20 libEGL1 libGL1 libGLU1 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0 libSDL2_net2.0_0 libSDL2_ttf2.0_0 zlib"
+BUILD_REQUIRES="$BUILD_REQUIRES xclock graphviz libwebkitgtk1.0_0 libwebkitgtk3.0_0 libpng16 libjpeg8 libexpat1 libiconv libiconv2 libmspack0 libnotify libnotify4 libtiff6 libXpm4 libcogl20 libEGL1 libGL1 libGLU1 libSDL2_2.0_0 libSDL2_image2.0_0 libSDL2_mixer2.0_0 libSDL2_net2.0_0 libSDL2_ttf2.0_0 gstreamer1.0 gstreamer1.0-plugins-base libSM6 libXtst6 liblzma5 zlib"
 
 
 PATCH_URI="
@@ -27,7 +27,6 @@ PATCH_URI="
 	https://src.fedoraproject.org/rpms/wxGTK3/raw/master/f/force-x11-for-wxgl.patch
 	3.0.2-cygwin-auto-import.patch
 	3.1.4-cygwin-dlopen.patch
-	3.0.2-cygwin-unix.patch
 	3.1.4-cygwin-unix-part0.patch
 	3.1.4-cygwin-unix-part1.patch
 	3.1.4-cygwin-unix-part2.patch
@@ -44,13 +43,13 @@ PATCH_URI="
 
 slot=${PV_MAJ_MIN}
 
-PKG_NAMES="libwx_baseu3.1_0 libwx_baseu3.1-devel ${NAME}-doc
-           libwx_gtk2u3.1_0 libwx_gtk2u3.1-devel
-           libwx_gtk3u3.1_0 libwx_gtk3u3.1-devel"
-libwx_baseu3_1_0_SUMMARY="${SUMMARY} (base unicode runtime)"
-libwx_baseu3_1_0_CONTENTS="
+PKG_NAMES="libwx_baseu3.1_5 libwx_baseu3.1-devel ${NAME}-doc
+           libwx_gtk2u3.1_5 libwx_gtk2u3.1-devel
+           libwx_gtk3u3.1_5 libwx_gtk3u3.1-devel"
+libwx_baseu3_1_5_SUMMARY="${SUMMARY} (base unicode runtime)"
+libwx_baseu3_1_5_CONTENTS="
 	--exclude=html
-	usr/bin/cygwx_baseu*-3.1-0.dll
+	usr/bin/cygwx_baseu*-3.1-5.dll
 	usr/share/doc/${NAME}/
 	usr/share/locale/*/LC_MESSAGES/wxstd31.mo
 "
@@ -64,8 +63,8 @@ libwx_baseu3_1_devel_CONTENTS="
 	usr/share/aclocal/wxwin-3.1.m4
 	usr/share/bakefile/presets/wx31*
 "
-libwx_gtk2u3_1_0_SUMMARY="${SUMMARY} (GTK+2 unicode runtime)"
-libwx_gtk2u3_1_0_CONTENTS="usr/bin/cygwx_gtk2u*-3.1-0.dll"
+libwx_gtk2u3_1_5_SUMMARY="${SUMMARY} (GTK+2 unicode runtime)"
+libwx_gtk2u3_1_5_CONTENTS="usr/bin/cygwx_gtk2u*-3.1-5.dll"
 libwx_gtk2u3_1_devel_SUMMARY="${SUMMARY} (development)"
 libwx_gtk2u3_1_devel_REQUIRES="libGL-devel libglib2.0-devel libgtk2.0-devel libX11-devel"
 libwx_gtk2u3_1_devel_CONTENTS="
@@ -73,8 +72,8 @@ libwx_gtk2u3_1_devel_CONTENTS="
 	usr/lib/wx/config/gtk2-unicode-3.1
 	usr/lib/wx/include/gtk2-unicode-3.1/
 "
-libwx_gtk3u3_1_0_SUMMARY="${SUMMARY} (GTK+3 unicode runtime)"
-libwx_gtk3u3_1_0_CONTENTS="usr/bin/cygwx_gtk3u*-3.1-0.dll"
+libwx_gtk3u3_1_5_SUMMARY="${SUMMARY} (GTK+3 unicode runtime)"
+libwx_gtk3u3_1_5_CONTENTS="usr/bin/cygwx_gtk3u*-3.1-5.dll"
 libwx_gtk3u3_1_devel_SUMMARY="${SUMMARY} (development)"
 libwx_gtk3u3_1_devel_REQUIRES="libGL-devel libglib2.0-devel libgtk2.0-devel libX11-devel"
 libwx_gtk3u3_1_devel_CONTENTS="
@@ -109,7 +108,11 @@ src_compile() {
 	mkdir -p ${B}/base
 	pushd ${B}/base
 
-	# standalone wx_base
+    #NB: Have to run configure scripts manually because otherwise they fail to
+	#find catch.hpp (in-tree dependency).
+
+	#standalone wx_base (just a quick test of the configure script.
+	#(this configuration is no longer built)
 	${S}/configure \
 		--enable-compat28 \
 		--enable-optimise \
@@ -181,6 +184,7 @@ src_compile() {
 }
 
 #Disabled, as automated tests are currently not working.
+#-Werror or similar is preventing me from compiling all these tests.
 #src_test() {
 #	echo "--- GTK2 tests ---"
 #	pushd ${B}/gtk2/tests
@@ -198,11 +202,16 @@ src_compile() {
 #}
 
 src_install() {
+    #Fix things being installed in /usr/local/* instead of /usr/*
+    USE_DESTDIR=0
+	
+    dodir /usr/bin
 	dodir /usr/lib
+	
 	cd ${B}/base
 	cp -fr lib/wx/ ${D}/usr/lib/
 	cd ${B}/gtk2
-	cyginstall -j1
+	cyginstall -j1 
 	cp -fr lib/lib*.dll.a lib/wx/ ${D}/usr/lib/
 	cd ${B}/gtk3
 	cyginstall -j1
