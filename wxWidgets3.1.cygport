@@ -103,27 +103,6 @@ src_compile() {
 	cygmake allmo -j1
 	popd
 	
-	mkdir -p ${B}/base
-	pushd ${B}/base
-
-    #NB: Have to run configure scripts manually because otherwise they fail to
-	#find catch.hpp (in-tree dependency).
-
-	#standalone wx_base (just a quick test of the configure script.
-	#(this configuration is no longer built)
-	${S}/configure \
-		--enable-compat28 \
-		--enable-optimise \
-		--enable-shared \
-		--enable-unicode \
-		--disable-gui \
-		--disable-rpath \
-		--with-regex=sys \
-		--with-expat \
-		--with-libiconv \
-		--with-zlib
-
-	popd
 	mkdir -p ${B}/gtk2
 	pushd ${B}/gtk2
 
