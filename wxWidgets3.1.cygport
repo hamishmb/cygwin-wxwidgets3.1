@@ -161,7 +161,9 @@ src_compile() {
 }
 
 #Disabled, as automated tests are currently not working.
-#-Werror or similar is preventing me from compiling all these tests.
+#-Werror or similar is preventing me from compiling all these tests on GCC 11.
+#Manually remove: -werror=format-security -werror=return-type
+#Not working: Wno-error=redundant-decls -Wno-error=arith-conversion -Wno-error=shadow -Wno-error=zero-as-null-pointer-constant
 #src_test() {
 #	echo "--- GTK2 tests ---"
 #	pushd ${B}/gtk2/tests
