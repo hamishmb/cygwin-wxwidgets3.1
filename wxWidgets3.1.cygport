@@ -13,9 +13,8 @@ HOMEPAGE="http://wxwidgets.org/"
 SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${VERSION}/wxWidgets-${VERSION}.tar.bz2"
 SRC_DIR="wxWidgets-${VERSION}"
 
-#NOTE: autoconf 2.69 must be the default for this package to build.
 #Just for building:
-BUILD_REQUIRES="gettext gettext-devel make cppunit autoconf2.5 pkg-config gcc-core gcc-g++ doxygen libX11-devel libgtk2.0-devel libgtk3-devel libwebkitgtk1.0-devel libwebkitgtk3.0-devel libpng-devel libjpeg-devel libexpat-devel libiconv-devel libmspack-devel libnotify-devel libtiff-devel libXpm-devel libcogl-devel libEGL-devel libGL-devel libGLU-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_net-devel libSDL2_ttf-devel libsecret1_0 libsecret1-devel libgstreamer1.0-devel libgstinterfaces1.0-devel libSM-devel libXtst-devel liblzma-devel zlib-devel "
+BUILD_REQUIRES="gettext gettext-devel make cppunit autoconf pkg-config gcc-core gcc-g++ doxygen libX11-devel libgtk2.0-devel libgtk3-devel libwebkitgtk1.0-devel libwebkitgtk3.0-devel libpng-devel libjpeg-devel libexpat-devel libiconv-devel libmspack-devel libnotify-devel libtiff-devel libXpm-devel libcogl-devel libEGL-devel libGL-devel libGLU-devel libSDL2-devel libSDL2_image-devel libSDL2_mixer-devel libSDL2_net-devel libSDL2_ttf-devel libsecret1_0 libsecret1-devel libgstreamer1.0-devel libgstinterfaces1.0-devel libSM-devel libXtst-devel liblzma-devel zlib-devel "
 
 #For running unit tests/runtime (currently disabled because they don't work).
 #Still needed for manual testing though, so leaving in here.
@@ -98,8 +97,6 @@ src_compile() {
 	local myconf
 	
 	pushd ${S}
-	NO_ACLOCAL=1 NO_LIBTOOLIZE=1 NO_AUTOHEADER=1 NO_AUTOMAKE=1 \
-	autoreconf-2.69
 
 	pushd ${S}/locale
 	rm -f *.mo
